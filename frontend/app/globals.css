@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 263.4 70% 50.4%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 263.4 70% 50.4%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 263.4 70% 50.4%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 263.4 70% 50.4%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+    background: #09090B;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* DashboardV2 Design Tokens - Scoped to .dashboard-theme */
+.dashboard-theme {
+  /* Override shadcn theme variables to match dashboard colors */
+  --background: 240 10% 3.9%;
+  --foreground: 220 20% 95%;
+  --card: 225 8% 10%;
+  --card-foreground: 220 20% 95%;
+  --popover: 225 8% 10%;
+  --popover-foreground: 220 20% 95%;
+  --primary: var(--primary-hsl, 217 91% 60%);
+  --primary-foreground: 0 0% 100%;
+  --secondary: 225 6% 15%;
+  --secondary-foreground: 220 20% 95%;
+  --muted: 225 6% 15%;
+  --muted-foreground: 220 8% 52%;
+  --accent: 225 6% 15%;
+  --accent-foreground: 220 20% 95%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 220 8% 18%;
+  --input: 220 8% 18%;
+  --ring: var(--ring-hsl, 217 91% 60%);
+  --radius: 0.5rem;
+  /* Base colors */
+  --color-bg-base: #09090B;
+  --color-bg-card: #111318;
+  --color-bg-elevated: #181b23;
+  --color-bg-overlay: #1e2230;
+
+  /* Borders */
+  --color-border-subtle: rgba(255, 255, 255, 0.055);
+  --color-border-default: rgba(255, 255, 255, 0.09);
+  --color-border-strong: rgba(255, 255, 255, 0.15);
+
+  /* Generic accent tokens (overridden by AccentProvider) */
+  --color-accent: #3b82f6;
+  --color-accent-hover: #60a5fa;
+  --color-accent-dim: rgba(59, 130, 246, 0.12);
+  --color-accent-rgb: 59, 130, 246;
+  --color-accent-gradient: linear-gradient(135deg, #3b82f6 0%, #6d5ce7 100%);
+  --color-accent-gradient-horiz: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  --color-accent-glow: 0 0 0 1px rgba(59,130,246,0.15), 0 0 20px rgba(59,130,246,0.12), 0 0 40px rgba(59,130,246,0.06);
+  --color-accent-glow-hover: 0 0 0 1px rgba(59,130,246,0.3), 0 0 28px rgba(59,130,246,0.25), 0 0 50px rgba(59,130,246,0.12);
+  --color-accent-drop-shadow: 0 0 8px rgba(59,130,246,0.35);
+  --color-accent-drop-shadow-filter: drop-shadow(0 0 8px rgba(59,130,246,0.35));
+  --color-accent-button-glow: 0 0 20px rgba(59,130,246,0.3);
+  --primary-hsl: 217 91% 60%;
+  --ring-hsl: 217 91% 60%;
+
+  /* Legacy accent aliases (backward compat) */
+  --color-accent-blue: var(--color-accent);
+  --color-accent-blue-hover: var(--color-accent-hover);
+  --color-accent-blue-dim: var(--color-accent-dim);
+  --color-accent-purple: #8b5cf6;
+  --color-accent-purple-dim: rgba(139, 92, 246, 0.12);
+  --color-success: #10b981;
+  --color-success-dim: rgba(16, 185, 129, 0.12);
+  --color-warning: #f59e0b;
+  --color-warning-dim: rgba(245, 158, 11, 0.12);
+
+  /* Text colors */
+  --color-text-primary: #eef2f7;
+  --color-text-secondary: #7d8796;
+  --color-text-muted: #4a5260;
+  --color-text-accent: #60a5fa;
+
+  /* Fonts — managed by next/font/google via layout.tsx */
+
+  /* Border radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+}
+
+/* Dashboard base styles within theme scope */
+.dashboard-theme {
+  font-family: var(--font-body);
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hide scrollbars until hover (DashboardV2 behavior) */
+.dashboard-theme * {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+}
+.dashboard-theme *::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.dashboard-theme *::-webkit-scrollbar-track {
+  background: transparent;
+}
+.dashboard-theme *::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 99px;
+}
+.dashboard-theme *:not(:hover)::-webkit-scrollbar-thumb {
+  background: transparent;
+}

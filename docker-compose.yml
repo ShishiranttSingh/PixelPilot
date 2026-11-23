@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: pixelpilot_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: pixelpilot
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - pixelpilot_net
+
+  redis:
+    image: redis:7-alpine
+    container_name: pixelpilot_redis
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - pixelpilot_net
+
+  backend:
+    build:
+      context: ./backend
+    container_name: pixelpilot_backend
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    networks:
+      - pixelpilot_net
+
+  worker:
+    build:
+      context: ./backend
+    container_name: pixelpilot_worker
+    command: celery -A app.core.celery worker --loglevel=info
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - pixelpilot_net
+
+  frontend:
+      build:
+        context: ./frontend
+      container_name: pixelpilot_frontend
+      volumes:
+        - ./frontend:/app
+        - /app/node_modules
+      env_file:
+        - .env
+      depends_on:
+        - backend
+      ports:
+        - "3000:3000"
+      networks:
+        - pixelpilot_net
+
+networks:
+  pixelpilot_net:
+    driver: bridge
+
+volumes:
+  postgres_data:
+
+  
